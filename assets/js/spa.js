@@ -30,6 +30,10 @@ canvas.style.border = "1px solid";
 var body = document.getElementsByTagName("body")[0];
 body.appendChild(canvas);
 
-cursorLayer = document.getElementById("CursorLayer");
-
-console.log(cursorLayer);
+var rectNum;
+var boxWidth = (canvas.width-100)/10;
+var offSet = 20;
+var ctx= canvas.getContext("2d");
+for(rectNum=0;rectNum<5 ;rectNum++){
+ctx.fillRect(rectNum*(boxWidth+offSet),20,boxWidth,100);
+}
