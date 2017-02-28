@@ -20,7 +20,7 @@ io.socket.on('emoji', function(event){
 var canvas = document.createElement('canvas');
 
 canvas.id = "CursorLayer";
-canvas.width = 1124;
+canvas.width = window.innerWidth;
 canvas.height = 768;
 canvas.style.zIndex = 8;
 canvas.style.position = "absolute";
