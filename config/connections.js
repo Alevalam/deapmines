@@ -33,11 +33,6 @@ module.exports.connections = {
   },
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 34f19ccfa96c8a3a81e1fc3863328917d8a1aec9
-
   /***************************************************************************
   *                                                                          *
   * MySQL is the world's most popular relational database.                   *
