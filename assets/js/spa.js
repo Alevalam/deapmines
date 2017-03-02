@@ -4,11 +4,24 @@ function CanvasCtrl($scope) {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     
-    $scope.data = [
-       
+    $scope.data = [  
     ];
-    
-    $scope.addData = function() {
+
+    io.socket.get('/deapmines', function (data) {
+    $scope.deapmines = data;
+    $scope.$apply();
+});
+
+    io.socket.on('deapmines', function(event){
+        switch (event.verb) {
+            case 'created':
+                $scope.emojis.push(event.data);
+                $scope.$apply();
+                break;
+        }
+    });
+
+   $scope.addData = function() {
         var id = 0;
         if($scope.data.length > 0) {
             id = $scope.data[$scope.data.length-1].id + 1;
@@ -27,7 +40,7 @@ function CanvasCtrl($scope) {
         for(var i=0; i<data.length; i++) {
             drawSquare(data[i]);
         }
-    }
+    };
     
     function drawSquare(data) {
         context.beginPath();
@@ -39,12 +52,14 @@ function CanvasCtrl($scope) {
                  (rectY <= pointY) && (rectY + rectHeight >= pointY);
     }
 
+
     // setup
     canvas.width = 600;
     canvas.height = 400;
     context.globalAlpha = 1.0;
     context.beginPath();
     draw($scope.data);
+
 }]);  
 
 
