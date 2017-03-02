@@ -1,22 +1,22 @@
 angular.module('Platzi', []);
 angular.module('Platzi').controller('CanvasCtrl', ['$scope', 
 function CanvasCtrl($scope) {
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    
     $scope.data = [  
     ];
 
-    io.socket.get('/deapmines', function (data) {
-    $scope.deapmines = data;
-    $scope.$apply();
-});
+    io.socket.get('/deapmine', function add(data) {
+      $scope.deapmines = data;
+      $scope.$apply();
+    });
 
-    io.socket.on('deapmines', function(event){
+    io.socket.on('deapmine', function(event){
         switch (event.verb) {
             case 'created':
-                $scope.emojis.push(event.data);
+                $scope.deampines.push(event.data);
                 $scope.$apply();
+                var color = hash.concat(event.data.text);
+                context.fillStyle=color;
+                context.fillRect(0,0,canvas.width,canvas.height);
                 break;
         }
     });
@@ -32,6 +32,7 @@ function CanvasCtrl($scope) {
         $scope.y = '';
         $scope.height = '';
         $scope.width = '';
+
         draw($scope.data);
     };
     
@@ -54,13 +55,13 @@ function CanvasCtrl($scope) {
 
 
     // setup
+}]);  
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
     canvas.width = 600;
     canvas.height = 400;
     context.globalAlpha = 1.0;
     context.beginPath();
-    draw($scope.data);
-
-}]);  
 
 
  

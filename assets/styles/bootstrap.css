@@ -1437,14 +1437,6 @@ ol ol {
   padding-right: 5px;
   padding-left: 5px;
 }
-ul {
-    -moz-column-count: 4;
-    -moz-column-gap: 20px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 20px;
-    column-count: 4;
-    column-gap: 20px;
-}
 dl {
   margin-top: 0;
   margin-bottom: 20px;
