@@ -50,6 +50,55 @@
 //
 //
 
+
+
+//COMMENTED ON 3/9/17: Code adds color to the canvas based on hex representation
+// angular.module('Platzi', []);
+// angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
+//
+//     io.socket.get('/emoji', function (data) {
+//       $scope.emojis = data;
+//       $scope.$apply();
+//     });
+//
+//     io.socket.on('emoji', function(event){
+//         switch (event.verb) {
+//             case 'created':
+//                 $scope.emojis.push(event.data);
+//                 $scope.$apply();
+//                 var ctx= canvas.getContext("2d");
+//                 var color = hash.concat(event.data.text);
+//                 ctx.fillStyle=color;
+//                 ctx.fillRect(0,0,canvas.width,canvas.height);
+//
+//                 // // Red rectangle
+//
+//                 for(var i = 0; i < 10; i++){
+//                   ctx.beginPath();
+//                   ctx.rect(50*(i) , 0, 50,50);
+//                   ctx.strokeStyle="red";
+//                   ctx.stroke();
+//                 }
+//
+//                 break;
+//         }
+//     });
+//
+// }]);
+//
+// var canvas = document.createElement("canvas");
+// canvas.id     = "CursorLayer";
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
+// canvas.style.position = "absolute";
+// canvas.style.zIndex = 8;
+// canvas.style.border = "1ptx solid";
+//
+// var hash = "#";
+// var body = document.getElementsByTagName("body")[0];
+// body.appendChild(canvas);
+
+
 angular.module('Platzi', []);
 angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
 
@@ -63,10 +112,13 @@ angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
             case 'created':
                 $scope.emojis.push(event.data);
                 $scope.$apply();
-                var ctx= canvas.getContext("2d");
                 var color = hash.concat(event.data.text);
                 ctx.fillStyle=color;
                 ctx.fillRect(0,0,canvas.width,canvas.height);
+                var cube = new Grid(ctx);
+                break;
+            case 'clicked':
+                alert(event.data.row);
                 break;
         }
     });
@@ -81,6 +133,30 @@ canvas.style.position = "absolute";
 canvas.style.zIndex = 8;
 canvas.style.border = "1ptx solid";
 
+function drawCube(contxt, xpos, ypos){
+  contxt.beginPath();
+  this.square = contxt.fillRect(xpos,ypos,SIZE,SIZE);
+  return this.square;
+}
+
+function Grid(context){
+  context.beginPath();
+  context.fillStyle='#000000'
+  var rows = [];
+  for(i = 3; i < (window.innerHeight); i+=32){
+    var row = [];
+    for (j = 3; j < window.innerWidth; j+=32){
+      row.push(drawCube(context, j, i));
+    }
+    rows.push(row);
+  }
+  this.squares = rows;
+}
+
+var ctx = canvas.getContext("2d");
+var cube = new Grid(ctx);
+
 var hash = "#";
+var SIZE = 30;
 var body = document.getElementsByTagName("body")[0];
 body.appendChild(canvas);

@@ -9,6 +9,9 @@ module.exports = {
 
   attributes: {
 
+    square: {
+      type: 'string'
+    }
+
   }
 };
-
