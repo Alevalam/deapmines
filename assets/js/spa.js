@@ -9,8 +9,10 @@ angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
     io.socket.on('emoji', function(event){
         switch (event.verb) {
             case 'created':
-                var hash = "#";
-                var color = hash.concat(event.data.text);
+              //  var hash = "#";
+              //  var color = hash.concat(event.data.text);
+
+                var array = (event.data.text).split(",");
                 var canvas = document.createElement("canvas");
                 canvas.id = "CursorLayer";
                 canvas.width = 300;
@@ -21,7 +23,7 @@ angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
                 //var ctx = canvas.getContext("2d");
                 // ctx.fillStyle=color;
                 // ctx.fillRect(0,0,canvas.width,canvas.height);
-                var gameboard = new Grid(canvas, color, 10, 10);
+                var gameboard = new Grid(canvas, array, 10,10);
                 canvas.onclick = gameboard.onclick;
                 gameboard.draw();
                 var body = document.getElementsByTagName("body")[0];
