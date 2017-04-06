@@ -84,9 +84,3 @@ function Tile(context, color,flipColor, xpos, ypos, id, value, neighbors){
 
   return this.tileID;
 }
-
-// function drawtile(contxt, xpos, ypos){
-//   contxt.beginPath();
-//   this.square = contxt.fillRect(xpos,ypos,SIZE,SIZE);
-//   return this.square;
-// }

@@ -1,5 +1,5 @@
-angular.module('Platzi', []);
-angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
+angular.module('Deapmines', []);
+angular.module('Deapmines').controller('BaseCtrl', ['$scope',function ($scope) {
 
     io.socket.get('/emoji', function (data) {
       $scope.emojis = data;
@@ -11,8 +11,9 @@ angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
             case 'created':
               //  var hash = "#";
               //  var color = hash.concat(event.data.text);
-
+                //var numBombs = event.data.text;
                 var array = (event.data.text).split(",");
+
                 var canvas = document.createElement("canvas");
                 canvas.id = "CursorLayer";
                 canvas.width = 300;
@@ -23,16 +24,17 @@ angular.module('Platzi').controller('BaseCtrl', ['$scope',function ($scope) {
                 //var ctx = canvas.getContext("2d");
                 // ctx.fillStyle=color;
                 // ctx.fillRect(0,0,canvas.width,canvas.height);
-                var gameboard = new Grid(canvas, array, 10,10);
+                var height = 10;
+                var width = 10;
+                //var array = new gridArray(numBombs, (height*width));
+              //  var test = new gridArray();
+                var gameboard = new Grid(canvas, array, height,width);
                 canvas.onclick = gameboard.onclick;
                 gameboard.draw();
                 var body = document.getElementsByTagName("body")[0];
                 body.appendChild(canvas);
                 $scope.emojis.push(event.data);
                 $scope.$apply();
-                break;
-            case 'clicked':
-                alert('hello');
                 break;
         }
     });
