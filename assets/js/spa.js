@@ -1,67 +1,44 @@
-angular.module('Platzi', []);
-angular.module('Platzi').controller('CanvasCtrl', ['$scope', 
-function CanvasCtrl($scope) {
-    $scope.data = [  
-    ];
+    angular.module('Deapmines', []);
+angular.module('Deapmines').controller('BaseCtrl', ['$scope',function ($scope) {
 
-    io.socket.get('/deapmine', function add(data) {
-      $scope.deapmines = data;
+    io.socket.get('/emoji', function (data) {
+      $scope.emojis = data;
       $scope.$apply();
     });
 
-    io.socket.on('deapmine', function(event){
+    io.socket.on('emoji', function(event){
         switch (event.verb) {
             case 'created':
-                $scope.deampines.push(event.data);
+              //  var hash = "#";
+              //  var color = hash.concat(event.data.text);
+                //var numBombs = event.data.text;
+                var array = (event.data.text).split(",");
+
+                var canvas = document.createElement("canvas");
+                canvas.id = "CursorLayer";
+                canvas.width = 300;
+                canvas.height = 300;
+                canvas.style.position = "absolute";
+                canvas.style.zIndex = 8;
+                canvas.style.border = "1ptx solid";
+                
+                //var ctx = canvas.getContext("2d");
+                // ctx.fillStyle=color;
+                // ctx.fillRect(0,0,canvas.width,canvas.height);
+                var height = 10;
+                var width = 10;
+                
+                //var array = new gridArray(numBombs, (height*width));
+                // var test = new gridArray();
+                var gameboard = new Grid(canvas, array, height,width);
+                canvas.onclick = gameboard.onclick;
+                gameboard.draw();
+                var body = document.getElementsByTagName("body")[0];
+                body.appendChild(canvas);
+                $scope.emojis.push(event.data);
                 $scope.$apply();
-                var color = hash.concat(event.data.text);
-                context.fillStyle=color;
-                context.fillRect(0,0,canvas.width,canvas.height);
                 break;
         }
     });
 
-   $scope.addData = function() {
-        var id = 0;
-        if($scope.data.length > 0) {
-            id = $scope.data[$scope.data.length-1].id + 1;
-        }
-        var p = {id: id, x: $scope.x, y: $scope.y, height: $scope.height, width: $scope.width};
-        $scope.data.push(p);
-        $scope.x = '';
-        $scope.y = '';
-        $scope.height = '';
-        $scope.width = '';
-
-        draw($scope.data);
-    };
-    
-    
-    function draw(data) {
-        for(var i=0; i<data.length; i++) {
-            drawSquare(data[i]);
-        }
-    };
-    
-    function drawSquare(data) {
-        context.beginPath();
-        context.fillRect(data.x, data.y, data.height, data.width);
-    }
-
-    function isPointInsideRect(pointX,pointY,rectX,rectY,rectWidth,rectHeight){
-    return  (rectX <= pointX) && (rectX + rectWidth >= pointX) &&
-                 (rectY <= pointY) && (rectY + rectHeight >= pointY);
-    }
-
-
-    // setup
-}]);  
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    canvas.width = 600;
-    canvas.height = 400;
-    context.globalAlpha = 1.0;
-    context.beginPath();
-
-
- 
+}]);
