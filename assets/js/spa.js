@@ -1,12 +1,12 @@
     angular.module('Deapmines', []);
 angular.module('Deapmines').controller('BaseCtrl', ['$scope',function ($scope) {
 
-    io.socket.get('/emoji', function (data) {
+     io.socket.get('/boardarray', function (data) {
       $scope.emojis = data;
       $scope.$apply();
     });
 
-    io.socket.on('emoji', function(event){
+    io.socket.on('boardarray', function(event){
         switch (event.verb) {
             case 'created':
               //  var hash = "#";

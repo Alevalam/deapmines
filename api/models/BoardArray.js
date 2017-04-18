@@ -4,7 +4,7 @@ module.exports = {
   attributes: {
 
     tile: {
-      type: 'array'
+      type: 'string'
     }
 
   }

@@ -1,6 +1,11 @@
 function newGame(){
   //var array = ("0,0,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,0").split(",");
-  var array = BoardArray.tile;
+    io.socket.get('/boardarray', function (data) {
+      $scope.emojis = data;
+      $scope.$apply();
+    });
+
+  var array = $scope.data.tile.split(",");
   var canvas = document.createElement("canvas");
   canvas.id = "CursorLayer";
   canvas.width = 300;
