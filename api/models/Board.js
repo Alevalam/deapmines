@@ -21,7 +21,7 @@ module.exports = {
 
   },
 
-  setTeam: function(this, x, y, team){
-    this.tile[x+y * this.width] = team;
+  setTeam: function(self, x, y, team){
+    self.tile[x+y * self.width] = team;
   }
 };
