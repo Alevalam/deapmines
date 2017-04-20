@@ -5,10 +5,12 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var clicked = 0;
 module.exports = {
 
-  hi: function(req, res){
-    return res.send('Hi there');
+  clicked: function(req, res){
+    clicked++;
+    return  res.send("Clicked: " + clicked);
   }
 
 

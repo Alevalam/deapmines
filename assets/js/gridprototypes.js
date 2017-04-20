@@ -10,7 +10,7 @@ function Grid(canvas, array, height, width){
   for(i = 0; i < height; i+=1){
     for (j = 0; j < width; j+=1){
       if(array[i + (j * width)] == 1){
-        //color = "#20B2AA";
+        //mycolor = "#20B2AA";
         flipColor = "#FF0000"
       }else{
         //color = "#228B22";
@@ -44,6 +44,11 @@ function Grid(canvas, array, height, width){
           }
         }
         this.draw();
+
+        io.socket.post('/board/clicked', function(resData){
+          alert(JSON.stringify(resData));
+        });
+
       }.bind(this)
 
     this.draw = function(){
