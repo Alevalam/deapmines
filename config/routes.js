@@ -34,8 +34,13 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
+  },
+
+  '/board/clicked':{
+    view: 'clicked'
   }
 
+  //'POST /board/clicked': 'BoardController.clicked'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

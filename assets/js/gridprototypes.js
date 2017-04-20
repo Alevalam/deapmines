@@ -1,27 +1,34 @@
-function Grid(canvas, array, height, width){
+function Grid(canvas, array, height, width, player){
   this.canvas = canvas;
   this.height = height;
   this.width = width;
   //this.color = color;
   this.array = array;
+  this.player = player;
 
   var tiles = [];
   var count = 0;
   for(i = 0; i < height; i+=1){
     for (j = 0; j < width; j+=1){
-      if(array[i + (j * width)] == 1){
-        //color = "#20B2AA";
-        flipColor = "#FF0000"
-      }else{
-        //color = "#228B22";
-        flipColor = "#000000"
-      }
       color = "#20B2AA";
-      tiles.push(new Tile(canvas.getContext("2d"), color, flipColor, j, i, count, count, 0));
+      tiles.push(new Tile(canvas.getContext("2d"), color, j, i, count, 0));
       count++;
     }
   }
   this.tiles = tiles;
+
+  io.socket.on('/log', function(event){
+      if(event.type=='board'){
+        //ToDo
+      }
+      else if(event.type=='cell'){
+        var x = event.payload.x;
+        var y = event.payload.y;
+        var team = event.payload.team;
+        this.array[x+y*(this.width)] = team;
+      }
+      this.draw();
+  })
 
   this.onclick = function(e) {
         var mouseX, mouseY;
@@ -40,10 +47,23 @@ function Grid(canvas, array, height, width){
         // var c = context.(x, y, 1, 1).data;
         for(tile of this.tiles){
           if(tile.xpos == x && tile.ypos == y){
-            tile.flip(tile.flipColor);
+            if(player==1){
+            this.array[tile.id] = player;
+            tile.flip("#FF0000");
+            player = 2;
+          }
+          else if(player==2){
+            this.array[tile.id] = player;
+            tile.flip("#000000");
+            player =1;
+          }
           }
         }
         this.draw();
+
+        io.socket.post('/board/clicked', function(resData){
+        });
+
       }.bind(this)
 
     this.draw = function(){
@@ -55,15 +75,13 @@ function Grid(canvas, array, height, width){
       }
 }
 
-function Tile(context, color,flipColor, xpos, ypos, id, value, neighbors){
+function Tile(context, color, xpos, ypos, id, neighbors){
   this.context = context;
   this.color = color;
-  this.flipColor = flipColor;
   this.xpos = xpos;
   this.ypos = ypos;
   this.tileID = id;
   this.isBomb = false;
-  this.value = value;
   this.free = false;
   this.clicked = false;
   this.neighbors = neighbors;
@@ -83,4 +101,10 @@ function Tile(context, color,flipColor, xpos, ypos, id, value, neighbors){
   }
 
   return this.tileID;
+}
+
+function IsGameOver(){
+  for(i = 0; i < height; i+=1){
+    if (Tile.color == "#000000");
+  }
 }
