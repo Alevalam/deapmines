@@ -9,6 +9,6 @@ module.exports = {
 
 	click: function(req,res){
 		sails.io.sockets.emit("emoji", {verb:"clicked", data:{from: req.param('sender'), row: req.param('row')}})
-	}
+	} 
 
 };

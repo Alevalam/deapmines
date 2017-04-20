@@ -1,0 +1,8 @@
+Make Get request for board to get an array in order to call the joingame function DONE
+
+create controler that will receive info for onclick events...
+update log using the information
+
+make push request for sending information to the clicked controller
+
+
