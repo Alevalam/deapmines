@@ -1,16 +1,29 @@
 module.exports = {
-  setupBoard: function(req, res){
+  setupBoard: function(){
 
-    Board.create({tile:"0,0,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,0"}).exec(function(err, board) {
-
-    if (err) {return res.serverError(err);}
-});
-
+    Board.create({
+      tile:[
+        0,0,0,1,1,1,0,1,0,1,
+        0,1,0,1,0,1,1,0,1,1,
+        1,1,0,1,0,0,0,1,0,0,
+        0,1,0,0,0,1,0,1,0,1,
+        0,1,0,1,1,1,1,0,1,1,
+        0,1,0,1,0,0,0,1,0,1,
+        1,1,0,0,0,1,0,1,0,0,
+        0,1,0,1,1,1,0,0,1,1,
+        0,1,0,1,0,0,1,1,0,1,
+        1,1,0,1,1,1,0,0,0,0],
+      width: 10,
+      height: 10})
+    .then(function(value){});
   },
 
-  setupLog: function(req, res){
-    Log.create({boardstate: "TESTING", timestamp: "13"}).exec(function(err, log) {
-    if (err) {return res.serverError(err);}
-    });
+  currentBoard: function(){
+    return Board.find()[0];
   }
+  // setupLog: function(req, res){
+  //   Log.create({boardstate: "TESTING", timestamp: "13"}).exec(function(err, log) {
+  //   if (err) {return res.serverError(err);}
+  //   });
+  // }
 };

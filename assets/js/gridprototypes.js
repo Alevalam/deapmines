@@ -45,7 +45,7 @@ function Grid(canvas, array, height, width){
         }
         this.draw();
 
-        io.socket.post('/board/clicked', function(resData){
+        io.socket.post('/board/clicked',{"x":0, "y":0}, function(resData){
           alert(JSON.stringify(resData));
         });
 
