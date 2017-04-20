@@ -2,10 +2,9 @@ function joinGame(){
   //var boardstring = "0,0,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,0";
 
   //GET REQUEST TO GET MODEL INFO
-  var boardstring = "";
   io.socket.get('/board', function (resData) {
-    boardstring = JSON.stringify(resData[0].tile);
-    var array = boardstring.split(",");
+    var array = resData[0].tile;
+    // var array = boardstring.split(",");
     var canvas = document.createElement("canvas");
     canvas.id = "CursorLayer";
     canvas.width = 300;

@@ -17,6 +17,7 @@ function Grid(canvas, array, height, width, player){
   }
   this.tiles = tiles;
 
+
   io.socket.on('/log', function(event){
       if(event.type=='board'){
         //ToDo
@@ -44,25 +45,11 @@ function Grid(canvas, array, height, width, player){
         var x = Math.floor((mouseX/this.canvas.width) * this.width);
         var y = Math.floor((mouseY/this.canvas.height) * this.height);
 
-        // var c = context.(x, y, 1, 1).data;
-        for(tile of this.tiles){
-          if(tile.xpos == x && tile.ypos == y){
-            if(player==1){
-            this.array[x+y*(this.width)] = player;
-            tile.flip("#FF0000");
-            player = 2;
-          }
-          else if(player==2){
-            this.array[tile.id] = player;
-            tile.flip("#000000");
-            player =1;
-          }
-          }
-        }
         this.draw();
 
-        io.socket.post('/board/clicked', function(resData){
-          alert(JSON.stringify(array));
+
+        io.socket.post('/board/clicked',{"x":0, "y":0, "player":this.player}, function(resData){
+          alert(JSON.stringify(resData));
         });
 
       }.bind(this)

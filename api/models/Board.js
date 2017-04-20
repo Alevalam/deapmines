@@ -9,8 +9,19 @@ module.exports = {
 
   attributes: {
     tile: {
-      type: 'string'
+
+      type: 'json'
+    },
+    width:{
+      type: 'integer'
+    },
+    height:{
+      type:'integer'
     }
 
+  },
+
+  setTeam: function(this, x, y, team){
+    this.tile[x+y * this.width] = team;
   }
 };

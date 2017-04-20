@@ -9,12 +9,12 @@
 
    attributes: {
 
-     boardstate: {
+     type: {
        type: 'string'
      },
-
-     timestamp: {
-       type: 'integer'
+     payload: {
+       type: 'json'
      }
+
    }
  };
