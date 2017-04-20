@@ -48,7 +48,7 @@ function Grid(canvas, array, height, width, player){
         for(tile of this.tiles){
           if(tile.xpos == x && tile.ypos == y){
             if(player==1){
-            this.array[tile.id] = player;
+            this.array[x+y*(this.width)] = player;
             tile.flip("#FF0000");
             player = 2;
           }
@@ -62,6 +62,7 @@ function Grid(canvas, array, height, width, player){
         this.draw();
 
         io.socket.post('/board/clicked', function(resData){
+          alert(JSON.stringify(array));
         });
 
       }.bind(this)
