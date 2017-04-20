@@ -6,5 +6,11 @@ module.exports = {
     if (err) {return res.serverError(err);}
 });
 
+  },
+
+  setupLog: function(req, res){
+    Log.create({boardstate: "TESTING", timestamp: "13"}).exec(function(err, log) {
+    if (err) {return res.serverError(err);}
+    });
   }
 };

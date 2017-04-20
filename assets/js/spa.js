@@ -5,12 +5,16 @@ angular.module('Deapmines').controller('BaseCtrl', ['$scope',function ($scope) {
       $scope.$apply();
     });
 
+
+
     io.socket.on('board', function(event){
         switch (event.verb) {
-            case 'hi':
-              alert(event.data.res);
-              break;
-            // case 'created':
+            // case 'hi':
+            //   $scope.boards.push(event.data);
+            //   $scope.$apply();
+            //   alert(event.data.res);
+            //   break;
+            // // case 'created':
             //   //  var hash = "#";
             //   //  var color = hash.concat(event.data.text);
             //     //var numBombs = event.data.text;
