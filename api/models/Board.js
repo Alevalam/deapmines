@@ -9,6 +9,7 @@ module.exports = {
 
   attributes: {
     tile: {
+
       type: 'json'
     },
     width:{
@@ -20,7 +21,8 @@ module.exports = {
 
   },
 
-  setTeam: function(self, x, y, team){
-    self.tile[x+y * self.width] = team;
+  setTeam: function(self, x, y, player){
+    sails.log(self, x, y , player);
+    self.tile[x+y * self.width] = player;
   }
 };

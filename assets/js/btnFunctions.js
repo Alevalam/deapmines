@@ -14,7 +14,7 @@ function joinGame(){
     canvas.style.border = "1ptx solid";
     var height = 10;
     var width = 10;
-    var gameboard = new Grid(canvas, array, height,width);
+    var gameboard = new Grid(canvas, array, height,width,1);
     canvas.onclick = gameboard.onclick;
     gameboard.draw();
     var holder = document.getElementById("boardHolder");

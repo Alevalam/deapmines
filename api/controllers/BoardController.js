@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+
 module.exports = {
 
   hi: function(req, res){
@@ -14,18 +15,15 @@ module.exports = {
   clicked: function(req, res){
     var x = req.body.x;
     var y = req.body.y;
-    var team = req.body.team;
+    var player = req.body.player;
 
 
-    Log.create({"type": "cell", "payload":{"x": x, "y": y, "team": team}})
+    Log.create({"type": "cell", "payload":{"x": x, "y": y, "player": player}})
     .then(function(value){sails.log("Created New Log Item");});
 
     var board = SetupService.currentBoard();
-    Board.setTeam(board, x, y, team);
-
+    board.then(function(b){
+      Board.setTeam(b, x, y, player);
+    });
   },
-
-
-
-
 };
