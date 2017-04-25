@@ -44,12 +44,10 @@ function Grid(canvas, array, height, width, player){
         }
         var x = Math.floor((mouseX/this.canvas.width) * this.width);
         var y = Math.floor((mouseY/this.canvas.height) * this.height);
-
+        this.array[x+y*(this.width)] = player;
         this.draw();
 
-
-        io.socket.post('/board/clicked',{"x":0, "y":0, "player":this.player}, function(resData){
-          alert(JSON.stringify(resData));
+        io.socket.post('/board/clicked',{"x":x, "y":y, "player":this.player}, function(resData){
         });
 
       }.bind(this)
@@ -75,6 +73,7 @@ function Tile(context, color, xpos, ypos, id, neighbors){
   this.neighbors = neighbors;
 
   this.draw = function(x, y){
+
     this.context.beginPath();
     this.context.fillStyle=this.color;
     this.context.fillRect(x, y, 30, 30);
@@ -84,9 +83,21 @@ function Tile(context, color, xpos, ypos, id, neighbors){
 
   }
 
-  this.flip = function(color){
-    this.color = color;
-  }
+  this.redraw = function(x, y, player){
+
+      this.context.beginPath();
+      if(player == 1){
+        this.context.fillStyle='#ff0000';
+      }else if(player == 2){
+        this.context.fillStyle='#0000ff';
+      }
+      this.context.fillRect(x, y, 30, 30);
+      this.context.rect(x,y,30,30);
+      this.context.strokeStyle = '#ffff00';
+      this.context.stroke();
+
+    }
+
 
   return this.tileID;
 }
