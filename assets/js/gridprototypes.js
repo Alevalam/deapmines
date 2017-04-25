@@ -25,8 +25,8 @@ function Grid(canvas, array, height, width, player){
       else if(event.type=='cell'){
         var x = event.payload.x;
         var y = event.payload.y;
-        var team = event.payload.team;
-        this.array[x+y*(this.width)] = team;
+        var player = event.payload.player;
+        this.array[x+y*(this.width)] = player;
       }
       this.draw();
   })
