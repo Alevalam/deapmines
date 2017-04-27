@@ -23,7 +23,14 @@ function Grid(canvas, array, height, width, player){
 
   // Listen to the log for a change and draw as necessary
   io.socket.on('/log', function(event){
+    alert("just checking stuff");
+    switch (event.verb) {
+      case 'clicked':
+       alert("this shit os was");
+       break;
+    }
     
+
       if(event.type=='board'){
         //ToDo
       }
@@ -34,7 +41,9 @@ function Grid(canvas, array, height, width, player){
         var y = event.payload.y;
         var player = event.payload.player;
         this.array[x+y*(this.width)] = player;
+        
       }
+
       this.draw();
   })
 
@@ -54,16 +63,10 @@ function Grid(canvas, array, height, width, player){
         // Obtain the 2D Index for the array
         var x = Math.floor((mouseX/this.canvas.width) * this.width);
         var y = Math.floor((mouseY/this.canvas.height) * this.height);
-<<<<<<< HEAD
+
+        //this.array[x+y*(this.width)] = player;
+        ;
         
-        this.draw();
-
-        // Inform the board that a click has occured
-=======
-        this.array[x+y*(this.width)] = player;
-        this.draw();
-
->>>>>>> 2f92ff9942838a11be69ff6e82d5c72551a8265e
         io.socket.post('/board/clicked',{"x":x, "y":y, "player":this.player}, function(resData){
         });
 
@@ -113,26 +116,6 @@ function Tile(context, array, xpos, ypos, id, neighbors){
     this.context.stroke();
 
   }
-
-<<<<<<< HEAD
-=======
-  this.redraw = function(x, y, player){
-
-      this.context.beginPath();
-      if(player == 1){
-        this.context.fillStyle='#ff0000';
-      }else if(player == 2){
-        this.context.fillStyle='#0000ff';
-      }
-      this.context.fillRect(x, y, 30, 30);
-      this.context.rect(x,y,30,30);
-      this.context.strokeStyle = '#ffff00';
-      this.context.stroke();
-
-    }
-
-
->>>>>>> 2f92ff9942838a11be69ff6e82d5c72551a8265e
   return this.tileID;
 }
 
