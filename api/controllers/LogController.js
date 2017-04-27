@@ -8,7 +8,7 @@
 module.exports = {
 
 	logEvent: function(req, res){
-		Log.find({boardstate:'TESTING'}).exec(function(err, logevent){
+		Log.find({width: 10}).exec(function(err, logevent){
 			if(err){
 				return res.send(err);
 			}

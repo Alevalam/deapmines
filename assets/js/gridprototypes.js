@@ -54,10 +54,16 @@ function Grid(canvas, array, height, width, player){
         // Obtain the 2D Index for the array
         var x = Math.floor((mouseX/this.canvas.width) * this.width);
         var y = Math.floor((mouseY/this.canvas.height) * this.height);
+<<<<<<< HEAD
         
         this.draw();
 
         // Inform the board that a click has occured
+=======
+        this.array[x+y*(this.width)] = player;
+        this.draw();
+
+>>>>>>> 2f92ff9942838a11be69ff6e82d5c72551a8265e
         io.socket.post('/board/clicked',{"x":x, "y":y, "player":this.player}, function(resData){
         });
 
@@ -85,6 +91,7 @@ function Tile(context, array, xpos, ypos, id, neighbors){
   var color;
 
   this.draw = function(x, y){
+
     this.context.beginPath();
 
     // Choose the color of the tile based on the correspinding team in the array
@@ -107,6 +114,25 @@ function Tile(context, array, xpos, ypos, id, neighbors){
 
   }
 
+<<<<<<< HEAD
+=======
+  this.redraw = function(x, y, player){
+
+      this.context.beginPath();
+      if(player == 1){
+        this.context.fillStyle='#ff0000';
+      }else if(player == 2){
+        this.context.fillStyle='#0000ff';
+      }
+      this.context.fillRect(x, y, 30, 30);
+      this.context.rect(x,y,30,30);
+      this.context.strokeStyle = '#ffff00';
+      this.context.stroke();
+
+    }
+
+
+>>>>>>> 2f92ff9942838a11be69ff6e82d5c72551a8265e
   return this.tileID;
 }
 
