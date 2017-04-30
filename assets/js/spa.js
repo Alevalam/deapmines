@@ -1,14 +1,25 @@
 angular.module('Deapmines', []);
 angular.module('Deapmines').controller('BaseCtrl', ['$scope',function ($scope) {
-    io.socket.get('/board', function (data) {
-      $scope.boards = data;
+    io.socket.get('/log', function (data) {
+      $scope.string = data;
+    //  alert(JSON.stringify(data));
       $scope.$apply();
     });
 
 
 
-    io.socket.on('board', function(event){
+    io.socket.on('log', function(event){
+        alert('some event');
         switch (event.verb) {
+            case 'created':
+              alert('in created');
+              alert(JSON.stringify(event.type));
+            //  scope.logEvent.push(event.data);
+              // $scope.$apply();
+              break;
+            case 'logEvent':
+              alert('in logEvent');
+              break;
             // case 'hi':
             //   $scope.boards.push(event.data);
             //   $scope.$apply();

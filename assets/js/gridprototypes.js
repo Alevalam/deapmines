@@ -17,20 +17,6 @@ function Grid(canvas, array, height, width, player){
   }
   this.tiles = tiles;
 
-
-  io.socket.on('/log', function(event){
-      if(event.type=='board'){
-        //ToDo
-      }
-      else if(event.type=='cell'){
-        var x = event.payload.x;
-        var y = event.payload.y;
-        var player = event.payload.player;
-        this.array[x+y*(this.width)] = player;
-      }
-      this.draw();
-  })
-
   this.onclick = function(e) {
         var mouseX, mouseY;
 

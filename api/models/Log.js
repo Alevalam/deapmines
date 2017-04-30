@@ -6,7 +6,7 @@
  */
 
  module.exports = {
-
+   autoSubscribe: true,
    attributes: {
 
      type: {

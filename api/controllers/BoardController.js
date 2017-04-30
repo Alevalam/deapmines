@@ -19,7 +19,8 @@ module.exports = {
 
 
     Log.create({"type": "cell", "payload":{"x": x, "y": y, "player": player}})
-    .then(function(value){sails.log("Created New Log Item");});
+    .then(function(value){sails.log("Created New Log Item");
+        Log.publishCreate(value);});
 
     var board = SetupService.currentBoard();
     board.then(function(b){
