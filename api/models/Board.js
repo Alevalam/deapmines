@@ -22,7 +22,7 @@ module.exports = {
   },
 
   setTeam: function(self, x, y, player){
-    sails.log(self, x, y , player);
     self.tile[x+y * self.width] = player;
+    sails.log(self, x, y , player);
   }
 };
