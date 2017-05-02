@@ -9,7 +9,6 @@ module.exports = {
 
   attributes: {
     tile: {
-
       type: 'json'
     },
     width:{

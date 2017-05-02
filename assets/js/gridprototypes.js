@@ -1,55 +1,31 @@
+var playerArray;
+var width1;
+var tiles = [];
+var canvas1;
+var height1;
+
 function Grid(canvas, array, height, width, player){
 
   // Initialize the variables for a canvas
-  this.canvas = canvas;
-  this.height = height;
-  this.width = width;
-  this.array = array;
+  canvas1 = canvas;
+  height1 = height;
+  width1 = width;
+  playerArray = array;
   this.player = player;
 
 
   // For loops to draw the tiles
-  var tiles = [];
   var id = 0;
   for(i = 0; i < height; i+=1){
-    for (j = 0; j < width; j+=1){
+    for (j = 0; j < width1; j+=1){
 
       // Create a tile and pass in the array with all the colors
-      tiles.push(new Tile(canvas.getContext("2d"), array, j, i, id, 0));
+      tiles.push(new Tile(canvas.getContext("2d"), j, i, id, 0));
       id++;
     }
   }
   this.tiles = tiles;
 
-// <<<<<<< HEAD
-// =======
-//   // Listen to the log for a change and draw as necessary
-//   io.socket.on('/log', function(event){
-//     alert("just checking stuff");
-//     switch (event.verb) {
-//       case 'clicked':
-//        alert("this shit os was");
-//        break;
-//     }
-//
-//
-//       if(event.type=='board'){
-//         //ToDo
-//       }
-//
-//       // Redraw one cell if that cell has been changed
-//       else if(event.type=='cell'){
-//         var x = event.payload.x;
-//         var y = event.payload.y;
-//         var player = event.payload.player;
-//         this.array[x+y*(this.width)] = player;
-//
-//       }
-//
-//       this.draw();
-//   })
-//
-// >>>>>>> bda8a2d1b51698eb3318c45d707cd2ab1ae57f2a
   this.onclick = function(e) {
         var mouseX, mouseY;
 
@@ -64,8 +40,8 @@ function Grid(canvas, array, height, width, player){
         }
 
         // Obtain the 2D Index for the array
-        var x = Math.floor((mouseX/this.canvas.width) * this.width);
-        var y = Math.floor((mouseY/this.canvas.height) * this.height);
+        var x = Math.floor((mouseX/canvas1.width) * width1);
+        var y = Math.floor((mouseY/canvas1.height) * height1);
 
         //this.array[x+y*(this.width)] = player;
         ;
@@ -78,18 +54,26 @@ function Grid(canvas, array, height, width, player){
     // Method to redraw the board if there's a click (might not be important)
     this.draw = function(){
         for(tile of this.tiles){
-          var x = (this.canvas.width/this.width) * tile.xpos;
-          var y  = (this.canvas.height/this.height) * tile.ypos;
+          var x = (canvas1.width/width1) * tile.xpos;
+          var y  = (canvas1.height/height1) * tile.ypos;
           tile.draw(x, y);
         }
       }
 }
 
-function Tile(context, array, xpos, ypos, id, neighbors){
+function redraw(x,y,player){
+  id = x+y*(width1);
+  playerArray[id] = player;        
+  //alert(JSON.stringify(playerArray));
+  var xpos = (canvas1.width/width1) * x;
+  var ypos  = (canvas1.height/height1) * y;
+  tiles[id].draw(xpos,ypos);
+}
+
+function Tile(context, xpos, ypos, id, neighbors){
 
   // Initialize the variables for a tile
   this.context = context;
-  this.array = array;
   this.xpos = xpos;
   this.ypos = ypos;
   this.tileID = id;
@@ -101,13 +85,13 @@ function Tile(context, array, xpos, ypos, id, neighbors){
     this.context.beginPath();
 
     // Choose the color of the tile based on the correspinding team in the array
-    if(this.array[id]==0){
+    if(playerArray[id]==0){
       color = "#20B2AA";
     }
-    else if(this.array[id]==1){
+    else if(playerArray[id]==1){
       color = "#00FF00";
     }
-    else if(this.array[id]==2){
+    else if(playerArray[id]==2){
       color = "#00FFFF";
     }
 
@@ -127,3 +111,4 @@ function IsGameOver(){
     if (Tile.color == "#000000");
   }
 }
+

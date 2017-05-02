@@ -1,5 +1,4 @@
 function joinGame(){
-  //var boardstring = "0,0,0,1,1,1,0,1,0,1,0,1,0,1,0,1,1,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,0";
 
   //GET REQUEST TO GET MODEL INFO
   io.socket.get('/board', function (resData) {
@@ -20,5 +19,5 @@ function joinGame(){
     var holder = document.getElementById("boardHolder");
     holder.appendChild(canvas);
   });
-
 }
+
