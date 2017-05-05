@@ -18,9 +18,16 @@
      }
 	},
 
-	updateCount: function(){
-	sails.log("Lookatme");
-	sails.log(this.count);
-   	this.count = this.count+1;
+  // Increasing the count value of a team to reflect one added player
+	updateCount: function(self){
+   self.count = self.count+1;
+   Team.update({number: self.number}, {count: self.count}).exec(function afterwards(err, updated){
+
+      if (err) {
+        // handle error here- e.g. `res.serverError(err);`
+        sails.log("ERROR UPDATING");
+        return;
+      }
+    });
    }
  };

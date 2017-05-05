@@ -12,6 +12,7 @@ angular.module('Deapmines').controller('BaseCtrl', ['$scope',function ($scope) {
               if(event.data.type=='board'){
                 //ToDo
               }
+              
               // Redraw one cell if that cell has been changed
               else if(event.data.type=='cell'){
                 var x = event.data.payload.x;
