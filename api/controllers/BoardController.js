@@ -24,7 +24,7 @@ module.exports = {
 
     var board = SetupService.currentBoard();
     board.then(function(b){
-      sails.log(board);
+      sails.log("PRINTING: ", b);
       Board.setTeam(b, x, y, player);
     });
   },

@@ -14,7 +14,8 @@ module.exports = {
         0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,],
       width: 10,
-      height: 10})
+      height: 10,
+      boardNum: 1})
     .then(function(value){
 
 
@@ -22,8 +23,9 @@ module.exports = {
   },
 
   currentBoard: function(){
-    return Board.findOne({width: 10});
+    return Board.findOne({boardNum: 1});
   }
+
   // setupLog: function(req, res){
   //   Log.create({boardstate: "TESTING", timestamp: "13"}).exec(function(err, log) {
   //   if (err) {return res.serverError(err);}
