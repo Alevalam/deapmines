@@ -1,4 +1,4 @@
-var playerArray;
+ var playerArray;
 var width1;
 var tiles = [];
 var canvas1;
@@ -89,9 +89,9 @@ function Tile(context, xpos, ypos, id, neighbors){
       color = "#20B2AA";
     }
     else if(playerArray[id]==1){
-      color = "#00FF00";
+      color = "#FF0000";
     }
-    else if(playerArray[id]==2){
+    else if(playerArray[id]==-1){
       color = "#00FFFF";
     }
 

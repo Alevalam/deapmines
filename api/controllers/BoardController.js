@@ -10,7 +10,7 @@ module.exports = {
 
   hi: function(req, res){
     return res.send('Hi There');
-  },
+  },  
 
   clicked: function(req, res){
     var x = req.body.x;
@@ -24,8 +24,7 @@ module.exports = {
 
     var board = SetupService.currentBoard();
     board.then(function(b){
-      sails.log(board);
-      Board.setTeam(b, x, y, player);
+         Board.setTeam(b, x, y, player);
     });
   },
 };

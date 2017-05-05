@@ -23,6 +23,22 @@ module.exports = {
 
   currentBoard: function(){
     return Board.findOne({width: 10});
+  },
+
+  setupTeams: function(){
+    team1 = Team.create({
+      number: 1,
+      count: 0})
+    .then(function(value){
+
+    });
+    
+    team2 = Team.create({
+      number: -1,
+      count: 0})
+    .then(function(value){
+
+    });
   }
   // setupLog: function(req, res){
   //   Log.create({boardstate: "TESTING", timestamp: "13"}).exec(function(err, log) {
