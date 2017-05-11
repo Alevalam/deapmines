@@ -3,6 +3,7 @@ var width1;
 var tiles = [];
 var canvas1;
 var height1;
+var gameOver = new Boolean(false);
 
 function Grid(canvas, array, height, width, player){
 
@@ -26,7 +27,49 @@ function Grid(canvas, array, height, width, player){
   }
   this.tiles = tiles;
 
+  this.isGameOver = function(e){
+
+    console.log(playerArray.toString());
+
+    for (i=0; i<height1; i++){
+      var rowSum = 0;
+      var rowPoint = i*width1;
+      for (j=0; j<width1; j++){
+        rowSum += playerArray[rowPoint];
+        rowPoint++;
+      }
+      console.log(i + " row Sum: " + rowSum);
+      console.log("width1: " + width1);
+
+      if(rowSum == width1 || rowSum == -width1){
+        gameOver = true;
+      }
+    }
+
+    for (m=0; m<width1; m++){
+      var colSum = 0;
+      var colPoint = m;
+      for (n=0; n<height1; n++){
+        colSum += playerArray[colPoint];
+        colPoint+= width1;
+      }
+      console.log(m + " col Sum: " + colSum);
+      console.log("height1: " + height1);
+
+      if(colSum == height1 || colSum == -height1){
+        gameOver = true;
+      }
+    }
+
+    if(gameOver == true){
+      alert("GAME OVER");
+    }
+  }
+
+
   this.onclick = function(e) {
+
+      if(gameOver == false){
         var mouseX, mouseY;
 
         //Locate the tile containing the click
@@ -49,6 +92,11 @@ function Grid(canvas, array, height, width, player){
         io.socket.post('/board/clicked',{"x":x, "y":y, "player":this.player}, function(resData){
         });
 
+        this.isGameOver();
+      } else {
+        alert("START A NEW GAME");
+      }
+
       }.bind(this)
 
     // Method to redraw the board if there's a click (might not be important)
@@ -63,7 +111,7 @@ function Grid(canvas, array, height, width, player){
 
 function redraw(x,y,player){
   id = x+y*(width1);
-  playerArray[id] = player;        
+  playerArray[id] = player;
   //alert(JSON.stringify(playerArray));
   var xpos = (canvas1.width/width1) * x;
   var ypos  = (canvas1.height/height1) * y;
@@ -111,4 +159,3 @@ function IsGameOver(){
     if (Tile.color == "#000000");
   }
 }
-
